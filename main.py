@@ -10,4 +10,4 @@ from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 ### Setup the game
 
 env = gym_super_mario_bros.make('SuperMarioBros-v0')
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+env = JoypadSpace(env, SIMPLE_MOVEMENT) #to drop possible action from 256 to 7
