@@ -1,2 +1,4 @@
 gym_super_mario_bros==7.3.0
 nes_py
+stable-baselines3[extra]
+torch torchvision torchaudio
