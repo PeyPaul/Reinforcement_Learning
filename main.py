@@ -18,7 +18,7 @@ from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 ### Preprocessing environement
 
 # import Frame Stacker Wrapper and Grayscaling Wrapper
-from gym.wrappers import FrameStack, GrayScaleObservation
+from gym.wrappers import GrayScaleObservation
 # Import vectorization wrappers
 from stable_baselines3.common.vec_env import VecFrameStack, DummyVecEnv
 # Import Matplotlib
@@ -31,5 +31,6 @@ env = JoypadSpace(env, SIMPLE_MOVEMENT) #to drop possible action from 256 to 7
 # grayscale the environment
 env = GrayScaleObservation(env, keep_dim = True)
 # wrap inside the dummy environment
-
+env = DummyVecEnv([lambda: env])
 # stack the frames
+env = VecFrameStack(env, 4, channels_order = 'last')
