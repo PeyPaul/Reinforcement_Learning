@@ -66,6 +66,11 @@ CHECKPOINT_DIR = './train/'
 LOG_DIR = './logs/'
 
 # setup model saving callback
-callback = TrainAndLoggingCallback(check_freq = 100000, save_path = CHECKPOINT_DIR) #by increasing check_freq we reduce the amount of memoryused by the model
+callback = TrainAndLoggingCallback(check_freq = 1000, save_path = CHECKPOINT_DIR) #by increasing check_freq we reduce the amount of memoryused by the model
 
+# AI model started
 model = PPO('CnnPolicy', env, verbose = 1, tensorboard_log = LOG_DIR, learning_rate = 0.000001, n_steps = 512)
+
+# train the model
+JoypadSpace.reset = lambda self, **kwargs: self.env.reset(**kwargs)
+model.learn(total_timesteps = 1000000, callback = callback)
