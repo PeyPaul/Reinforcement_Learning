@@ -7,11 +7,6 @@ from nes_py.wrappers import JoypadSpace
 # import the simplified controls
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 
-### Setup the game
-
-env = gym_super_mario_bros.make('SuperMarioBros-v0',apply_api_compatibility=True,render_mode="human" )
-env = JoypadSpace(env, SIMPLE_MOVEMENT) #to drop possible action from 256 to 7
-
 #done = True
 #for step in range(100000):
 #    if done:
@@ -28,3 +23,13 @@ from gym.wrappers import FrameStack, GrayScaleObservation
 from stable_baselines3.common.vec_env import VecFrameStack, DummyVecEnv
 # Import Matplotlib
 from matplotlib import pyplot as plt
+
+# create the environment
+env = gym_super_mario_bros.make('SuperMarioBros-v0',apply_api_compatibility=True,render_mode="human" )
+# simplify the controls
+env = JoypadSpace(env, SIMPLE_MOVEMENT) #to drop possible action from 256 to 7
+# grayscale the environment
+env = GrayScaleObservation(env, keep_dim = True)
+# wrap inside the dummy environment
+
+# stack the frames
