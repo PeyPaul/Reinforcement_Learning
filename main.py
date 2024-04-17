@@ -34,3 +34,12 @@ env = GrayScaleObservation(env, keep_dim = True)
 env = DummyVecEnv([lambda: env])
 # stack the frames
 env = VecFrameStack(env, 4, channels_order = 'last')
+
+### Train the RL model
+
+# import os for file path management
+import os
+# import PPO
+from stable_baselines3 import ppo
+# import base Callback for saving models
+from stable_baselines3.common.callbacks import BaseCallback
