@@ -34,7 +34,7 @@ env = VecFrameStack(env, 4, channels_order = 'last')
 
 # load model
 JoypadSpace.reset = lambda self, **kwargs: self.env.reset(**kwargs)
-model = PPO.load('./train/best_model_10240')
+model = PPO.load('./train/best_model_1000')
 
 
 # start the game

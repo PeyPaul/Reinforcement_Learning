@@ -15,6 +15,18 @@ from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 #    env.render()
 #env.close()
 
+
+###### TEST ########
+
+import torch
+
+# Vérifiez si CUDA (GPU) est disponible
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+###### FIN TEST #####
+
+
+
 ### Preprocessing environement
 
 # import Frame Stacker Wrapper and Grayscaling Wrapper
@@ -56,7 +68,7 @@ class TrainAndLoggingCallback(BaseCallback):
             os.makedirs(self.save_path, exist_ok = True)
             
     def _on_step(self):
-        if self.n_calls & self.check_freq == 0:
+        if self.n_calls % self.check_freq == 0:
             model_path = os.path.join(self.save_path, 'best_model_{}'.format(self.n_calls))
             self.model.save(model_path)
             
@@ -69,11 +81,8 @@ LOG_DIR = './logs/'
 callback = TrainAndLoggingCallback(check_freq = 100, save_path = CHECKPOINT_DIR) #by increasing check_freq we reduce the amount of memoryused by the model
 
 # AI model started
-model = PPO('CnnPolicy', env, verbose = 1, tensorboard_log = LOG_DIR, learning_rate = 0.000001, n_steps = 512)
+model = PPO('CnnPolicy', env, verbose = 1, tensorboard_log = LOG_DIR, learning_rate = 0.000001, n_steps = 512, device=device)
 
 # train the model
 JoypadSpace.reset = lambda self, **kwargs: self.env.reset(**kwargs)
 model.learn(total_timesteps = 1000, callback = callback)
-
-### Test it out
-
